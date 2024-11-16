@@ -5,8 +5,12 @@ import Image from 'next/image'
 import { FaGoogle } from "react-icons/fa"
 import profile from "@/assets/images/profile.png"
 import logoDefault from "@/assets/images/logo-white.png"
+
+//navbar components
 function Navbar() {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [isProfileMenu, setProfileMenu] = useState(false)
+
     return (
         <nav className="bg-blue-700 border-b border-blue-500">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -18,10 +22,13 @@ function Navbar() {
                             className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                             aria-controls="mobile-menu"
                             aria-expanded="false"
-                            onClick={() => setIsOpen(!isOpen)}
+                            onClick={() => {
+                                console.log("the main button has been clicked ...")
+                                setMobileMenuOpen(isOpen => !isOpen)
+
+                            }}
                         >
                             <span className="absolute -inset-0.5"></span>
-                            <FaGoogle className='mr-2 text-white' />
                             <span className="sr-only">Open main menu</span>
                             <svg
                                 className="block h-6 w-6"
@@ -38,13 +45,9 @@ function Navbar() {
                                 />
                             </svg>
                         </button>
-                    </div>
-                    <div
-                        className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
-                    >
                         <Link className="flex flex-shrink-0 items-center" href="/">
                             <Image
-                                className="h-8 w-8 rounded-full"
+                                className="h-8 w-8 rounded-full md:hidden"
                                 src={logoDefault}
                                 alt="profile image"
                                 width={32}
@@ -54,6 +57,10 @@ function Navbar() {
                             >PropertyPulse</span
                             >
                         </Link>
+                    </div>
+                    <div
+                        className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
+                    >
                         <div className="hidden md:ml-6 md:block">
                             <div className="flex space-x-2">
                                 <Link
@@ -124,6 +131,11 @@ function Navbar() {
                                     id="user-menu-button"
                                     aria-expanded="false"
                                     aria-haspopup="true"
+                                    onClick={() => {
+                                        console.log("the main button has been clicked ...")
+                                        setProfileMenu(isOpen => !isOpen)
+
+                                    }}
                                 >
                                     <span className="absolute -inset-1.5"></span>
                                     <span className="sr-only">Open user menu</span>
@@ -136,9 +148,9 @@ function Navbar() {
                                     />
                                 </button>
                             </div>
-                            <div
+                            {isProfileMenu && (<div
                                 id="user-menu"
-                                className="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 role="menu"
                                 aria-orientation="vertical"
                                 aria-labelledby="user-menu-button"
@@ -165,12 +177,13 @@ function Navbar() {
                                     id="user-menu-item-2"
                                 >Sign Out</Link
                                 >
-                            </div>
+                            </div>)}
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="hidden" id="mobile-menu">
+            {isMobileMenuOpen
+                && <div className="" id="mobile-menu">
                 <div className="space-y-1 px-2 pb-3 pt-2">
                     <Link
                         href="/"
@@ -192,7 +205,7 @@ function Navbar() {
                         <span> Google Login or Register</span>
                     </button>
                 </div>
-            </div>
+                </div>}
         </nav>
     )
 }
