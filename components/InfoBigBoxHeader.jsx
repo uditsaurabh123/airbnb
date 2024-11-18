@@ -1,10 +1,8 @@
 import React from 'react'
 
-function InfoBigBoxHeader() {
+function InfoBigBoxHeader({ header }) {
   return (
-    <div>
-      Infobigbox with header ...
-    </div>
+      <h2 className='text-3xl font-bold text-blue-500 mb-6 text-center'> {header}</h2>
   )
 }
 

@@ -5,23 +5,25 @@ import Image from 'next/image'
 import profile from "@/assets/images/profile.png"
 import logoDefault from "@/assets/images/logo-white.png"
 import { usePathname } from "next/navigation"
+import connectDB from '@/config/databse'
 
 //navbar components
 function Navbar() {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [isProfileMenu, setProfileMenu] = useState(false)
-    const [isLoggedIn, setLoggedIn] = useState(false)
+    const [isLoggedIn,] = useState(true)
 
     const pathname = usePathname();
 
     console.log('%ccomponents\Navbar.tsx:14 pathname', 'color: #007acc;', pathname);
-
+    console.log('%ccomponents\Navbar.tsx:14 this is process name', 'color: #007acc;', process.env.URI);
 
     return (
         <nav className="bg-blue-700 border-b border-blue-500">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-20 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+
                         <button
                             type="button"
                             id="mobile-dropdown-button"
@@ -72,8 +74,7 @@ function Navbar() {
                                 <Link
                                     href="/"
                                     className={`${pathname == "/" ? "bg-black" : ""} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-                                >Home</Link
-                                >
+                                >Home</Link>
                                 <Link
                                     href="/properties"
                                     className={`${pathname == "/properties" ? "bg-black" : ""} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
